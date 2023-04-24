@@ -1,0 +1,26 @@
+.edge {
+    margin: 5px 15%;
+}
+
+.user-img {
+    max-width: 100%;
+}
+
+#equip-img img {
+    height: 350px;
+    width: auto;
+}
+
+.icon-btn {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    margin: 0 0 0 5px;
+    transform: none !important;
+}
+
+#equipment-img {
+    align-self: flex-start;
+}

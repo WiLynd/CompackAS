@@ -1,0 +1,27 @@
+{
+    "header": {
+        "title": "Compack-AS: 〇〇 Factory"
+    },
+    "login": {
+        "title": "Factory information aggregation system",
+        "department": "Department",
+        "user": "User",
+        "password": "Password",
+        "rememberPw": "Remember password",
+        "login": "Login"
+    },
+    "message": {
+        "common": {
+            "com_i_0001": "Please wait...",
+            "com_i_0002": "Saving data...",
+            "com_i_0003": "Data saved successfully.",
+            "com_i_0004": "Data deleted successfully.",
+            "com_i_0005": "Delete. Is it OK?",
+            "com_e_0001": "Could not get data.",
+            "com_e_0002": "The input value is incorrect. Please re-enter."
+        },
+        "login": {
+            "log_e_0001": "Login failed."
+        }
+    }
+}

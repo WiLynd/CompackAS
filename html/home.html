@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Home</title>
+
+	<!-- CSS -->
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500&display=swap">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+		integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" href="../lib/vendor/assets/css/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" href="../lib/vendor/assets/css/animate.css">
+	<link rel="stylesheet" href="../lib/vendor/assets/css/style.css">
+	<link rel="stylesheet" href="../lib/vendor/assets/css/media-queries.css">
+	<link rel="stylesheet" type="text/css" href="../css/common.css">
+	<link rel="stylesheet" type="text/css" href="../css/home.css">
+	<link rel="stylesheet" type="text/css" href="../css/modal.css">
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+
+	<!-- Favicon and touch icons -->
+	<link rel="shortcut icon" href="./lib/vendor/assets/ico/favicon.png">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144"
+		href="./lib/vendor/assets/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114"
+		href="./lib/vendor/assets/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72"
+		href="./lib/vendor/assets/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="./lib/vendor/assets/ico/apple-touch-icon-57-precomposed.png">
+
+</head>
+
+<body>
+	<!-- open sidebar menu -->
+	<!-- Sidebar -->
+	<nav class="sidebar">
+
+		<!-- close sidebar menu -->
+		<div class="dismiss">
+			<i class="fas fa-times"></i>
+		</div>
+
+		<div class="logo">
+			<h3><a href="./home.html">
+				メニュー
+			</a></h3>
+		</div>
+
+		<ul class="list-unstyled menu-elements">
+			<li class="active">
+				<a class="scroll-link" href="#"><i class="fas fa-home"></i> ホーム
+				</a>
+			</li>
+
+			<li>
+				<a href="#otherSections" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+					role="button" aria-controls="otherSections">
+					<i class="fas fa-tasks"></i> 管理
+				</a>
+				<ul class="collapse list-unstyled" id="otherSections">
+					<li>
+						<a class="scroll-link" id="drawing-management">
+							<i class="fas fa-greater-than"></i> 図面管理
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" id="area-management">
+							<i class="fas fa-greater-than"></i> 場内エリア管理
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" id="equipment-management">
+							<i class="fas fa-greater-than"></i> 日常点検
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" id="equipment-registration-management">
+							<i class="fas fa-greater-than"></i> 設備登録管理
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" id="unit-management">
+							<i class="fas fa-greater-than"></i> 単位管理
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" id="language-management">
+							<i class="fas fa-greater-than"></i> 言語管理
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" id="message-management">
+							<i class="fas fa-greater-than"></i> メッセージ管理
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" id="user-management">
+							<i class="fas fa-greater-than"></i> DBユーザー管理
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" href="#"><i class="fas fa-greater-than"></i> 会社組織
+						</a>
+					</li>
+					<li>
+						<a class="scroll-link" href="#"><i class="fas fa-greater-than"></i> 規格管理
+						</a>
+					</li>
+					
+				</ul>
+			</li>
+			<li>
+				<a class="scroll-link" href="#"><i class="fas fa-chart-line"></i> 為替レート
+				</a>
+			</li>
+		</ul>
+
+		<div class="to-top">
+			<a class="btn btn-primary btn-customized-3" href="#" role="button">
+				<i class="fas fa-arrow-up"></i> トップ
+			</a>
+		</div>
+
+		<div class="dark-light-buttons">
+			<a class="btn btn-primary btn-customized-4 btn-customized-dark" href="#" role="button">ダーク</a>
+			<a class="btn btn-primary btn-customized-4 btn-customized-light" href="#" role="button">ライト</a>
+		</div>
+
+	</nav>
+	<!-- End sidebar -->
+
+	<!-- Dark overlay -->
+	<div class="overlay"></div>
+	<div id="header">
+		<h1 class="title" id="factory_name">
+		</h1>
+	</div>
+
+	<div id="backgroundPage">
+		<div class="container-mainform">
+			<a class="btn tableBtn btn-primary btn-customized open-menu m-t-5" href="#" role="button">
+				<i class="fas fa-bars"></i>
+			</a>
+			<div class="dropdown select-role">
+				<div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<span class="text" id="userName">
+						<img src="../lib/imgs/img-user.png" alt="User Img" class="userImg">
+						<a id="name"></a></span>
+				</div>
+				<ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
+					<li>
+						<a class="dropdown-item scan-page" id="userConfigBtn">
+							<span class="text" id="userConfig">
+								<i class="userBtn fas fa-user-cog m-r-10"></i>ユーザー情報登録編集</span>
+						</a>
+					</li>
+					<li>
+						<a class="dropdown-item scan-page" id="changePwBtn">
+							<span class="text" id="changePw"><i class="userBtn fas fa-key m-r-10"></i>パスワード変更</span>
+						</a>
+					</li>
+					<li>
+						<a class="dropdown-item scan-page" id="logoutBtn">
+							<span class="text" id="logoutOption"><i
+									class="userBtn fas fa-sign-out-alt m-r-10"></i>ログアウト</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="wrap-mainform">
+				<span id="titleForm">
+                    ホーム
+                </span>
+						
+
+				<!-- Wrapper -->
+				<div class="wrapper">
+					<!-- Content -->
+					<div class="content">
+					</div>
+					<!-- End content -->
+
+				</div>
+				<!-- End wrapper -->
+				<div id="calendar"></div>
+			</div>
+
+							
+		</div>
+	</div>
+
+	<!-- Javascript -->
+	<script src="../lib/vendor/assets/js/jquery-3.3.1.min.js"></script>
+	<script src="../lib/vendor/assets/js/jquery-migrate-3.0.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script src="../lib/vendor/assets/js/jquery.backstretch.min.js"></script>
+	<script src="../lib/vendor/assets/js/wow.min.js"></script>
+	<script src="../lib/vendor/assets/js/jquery.waypoints.min.js"></script>
+	<script src="../lib/vendor/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="../lib/vendor/assets/js/scripts.js"></script>
+	<script src='../lib/vendor/fullcalendar-6.1.5/packages/core/locales-all.global.js'></script>
+	<script src="../lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../lib/fonts/fontawesome-free-5.15.4-web/js/fontawesome.min.js"></script>
+	<script type="module" src='../js/home.js'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{
+    "header" : {
+        "title" : "Compack-AS: Nhà máy 〇〇"
+    },
+    "login" : {
+        "title" : "Hệ thống quản lý thông tin nhà máy",
+        "department" : "Bộ phận",
+        "user" : "Người dùng",
+        "password" : "Mật khẩu",
+        "rememberPw" : "Nhớ mật khẩu",
+        "login" : "Đăng nhập"
+    },
+    "message": {
+        "common": {
+            "com_i_0001": "Vui lòng chờ...",
+            "com_i_0002": "Đang lưu dữ liệu...",
+            "com_i_0003": "Dữ liệu được lưu thành công.",
+            "com_i_0004": "Đã xoá dữ liệu thàng công.",
+            "com_i_0005": "Bạn có chắc muốn xoá không?",
+            "com_e_0001": "Không thể lấy dữ liệu.",
+            "com_e_0002": "Giá trị đầu vào không chính xác. Vui lòng nhập lại."
+        },
+        "login": {
+            "log_e_0001": "Đăng nhập thất bại."
+        }
+    }
+}

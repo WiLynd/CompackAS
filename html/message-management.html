@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta http-equiv="Content-Security-Policy"
+        content="script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">
+    <title>Message Management</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="../lib/vendor/bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/vendor/bootstrap/bootstrap-4.0.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="../lib/fonts/fontawesome-free-5.15.4-web/css/all.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/message-management.css">
+    <link rel="stylesheet" type="text/css" href="../css/modal.css">
+    <link rel="stylesheet" type="text/css" href="../css/util.css">
+
+    <!--jQuery dependency, any stable version of jQuery-->
+    <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
+
+    <!--jQueryUI version 1.12 -->
+    <link href="https://unpkg.com/jquery-ui-pack@1.12.2/jquery-ui.css" rel="stylesheet" />
+    <link href="https://unpkg.com/jquery-ui-pack@1.12.2/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="https://unpkg.com/jquery-ui-pack@1.12.2/jquery-ui.theme.css" rel="stylesheet" />
+    <script src="https://unpkg.com/jquery-ui-pack@1.12.2/jquery-ui.js"></script>
+
+    <!--ParamQuery Grid css files-->
+    <!-- <link rel="stylesheet" href="path to pqgrid.(min/dev).css" /> -->
+    <link rel="stylesheet" href="../lib/vendor/jquery/grid-3.5.1/pqgrid.min.css" />
+
+    <!--add pqgrid.ui.css for jQueryUI theme support-->
+    <!-- <link rel="stylesheet" href="path to pqgrid.ui.(min/dev).css" /> -->
+    <link rel="stylesheet" href="../lib/vendor/jquery/grid-3.5.1/pqgrid.ui.min.css" />
+
+    <!--ParamQuery Grid custom theme e.g., office, bootstrap, rosy, chocolate, etc (optional)-->
+    <!-- <link rel="stylesheet" href="path to custom theme pqgrid.css" /> -->
+    <link rel="stylesheet" href="../lib/vendor/jquery/grid-3.5.1/themes/chocolate/pqgrid.css" />
+
+    <!--Include jsZip file (v2.5.0) before pqgrid js file to support xlsx and zip export (optional)-->
+    <!-- <script type="text/javascript" src="path to jsZip.js"></script> -->
+    <script type="text/javascript" src="../lib/vendor/jquery/grid-3.5.1/jsZip-2.5.0/jszip.min.js"></script>
+
+    <!--ParamQuery Grid js files-->
+    <!-- <script type="text/javascript" src="path to pqgrid.(min/dev).js"></script> -->
+    <script type="text/javascript" src="../lib/vendor/jquery/grid-3.5.1/pqgrid.min.js"></script>
+
+    <!--ParamQuery Grid localization file-->
+    <!-- <script src="localize/pq-localize-xx.js"></script> -->
+    <script src="../lib/vendor/jquery/grid-3.5.1/localize/pq-localize-en.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <h1 class="title" id="factory_name">
+        </h1>
+    </div>
+    <div id="backgroundPage">
+        <div class="container-mainform">
+            <div class="dropdown select-role">
+                <div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="text" id="userName">
+                        <img src="../lib/imgs/img-user.png" alt="User Img" class="userImg">
+                        <a id="name"></a></span>
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
+                    <li>
+                        <a class="dropdown-item scan-page" id="userConfigBtn">
+                            <span class="text" id="userConfig">
+                                <i class="userBtn fas fa-user-cog m-r-10"></i>ユーザー情報登録編集</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item scan-page" id="changePwBtn">
+                            <span class="text" id="changePw"><i class="userBtn fas fa-key m-r-10"></i>パスワード変更</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item scan-page" id="logoutBtn">
+                            <span class="text" id="logoutOption"><i
+                                    class="userBtn fas fa-sign-out-alt m-r-10"></i>ログアウト</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="wrap-mainform">
+                <span id="titleForm">
+                    メッセージ管理
+                </span>
+                
+                <div id="grid"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/fonts/fontawesome-free-5.15.4-web/js/fontawesome.min.js"></script>
+    <script type="module" src='../js/message-management.js'></script>
+</body>
+
+</html>
