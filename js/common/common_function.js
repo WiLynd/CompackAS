@@ -1,3 +1,5 @@
+const modal = document.getElementById("myModal");
+
 /**
    * GENERATE TABLE
 */
@@ -90,7 +92,6 @@ function setupModal(status, title, message, textButton0, textButton1, textButton
         button1.style.display = "block";
         button1.innerHTML = textButton1;
         button1.onclick = function () {
-            movePage("./home.html");
             modal.style.display = "none";
         }
     } else if (textButton1 != null) {
@@ -113,15 +114,15 @@ function setupModal(status, title, message, textButton0, textButton1, textButton
         button0.style.display = "none";
     }
 
-    // if (textButton1 != null) {
-    //     button1.style.display = "block";
-    //     button1.innerHTML = textButton1;
-    //     button1.onclick = function () {
-    //         modal.style.display = "none";
-    //     }
-    // } else {
-    //     button1.style.display = "none";
-    // }
+    if (textButton1 != null) {
+        button1.style.display = "block";
+        button1.innerHTML = textButton1;
+        button1.onclick = function () {
+            modal.style.display = "none";
+        }
+    } else {
+        button1.style.display = "none";
+    }
 
     if (textButton2 != null) {
         button2.style.display = "block";
@@ -201,6 +202,46 @@ function checkLogin(user) {
     }
 }
 
+function checkPwInput() {
+    let currentPassword = document.getElementById("currentPwInput").value;
+    let newPassword = document.getElementById("newPwInput").value;
+    let reNewPassword = document.getElementById("reNewPwInput").value;
+    if ((currentPassword.length >= 4) && (newPassword.length >= 4) && (reNewPassword.length >= 4)) {
+        document.getElementById("button_change").removeAttribute("disabled");
+    }
+}
+
+function setTextList(element, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (element == arr[i].item_id) {
+            return arr[i].text;
+        }
+    }
+}
+
+function setTextMessage(element, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (element == arr[i].key_phrase) {
+            return arr[i].text;
+        }
+    }
+}
+
+function logout() {
+    var button1 = document.getElementsByClassName("button-1")[0];
+    var button0 = document.getElementsByClassName("button-0")[0];
+
+    button1.onclick = function () {
+        movePage("./login.html");
+        modal.style.display = "none";
+    }
+
+    button0.onclick = function () {
+        modal.style.display = "none";
+    }
+}
+
 export {
-    backAction, setupModal, movePage, setupDatePicker, generateTable, setIconEnglish, setIconJapanese, setIconVietnamese, checkLogin
+    backAction, setupModal, movePage, setupDatePicker, generateTable, setIconEnglish, setIconJapanese, setIconVietnamese,
+    checkLogin, logout, checkPwInput, setTextList, setTextMessage
 }

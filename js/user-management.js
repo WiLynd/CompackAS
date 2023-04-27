@@ -1,32 +1,65 @@
 import * as Common from './common/common_function.js';
 import * as StringCS from './common/string.js';
 import * as Message from './common/message.js';
+import * as ValueCS from './common/values.js';
 
-var userData, data;
+const modal = document.getElementById("myModal");
+var data, languageData, buttonData, messageData;
+var tempRec = 0;
+var userDataArr = {
+    login_id: parseInt(sessionStorage.getItem(StringCS.EMPLOYEE)),
+    lstUser: []
+};
 var role = [];
-var language_id = [];
+var language = [];
 var department = [];
+var language_id = parseInt(sessionStorage.getItem(StringCS.LANGUAGE));
 
-$.ajax({
-    url: "https://192.168.200.134/CompackAS/compacks/readUserDat?employee_id=0&languageId=3",
-    cache: false,
-    async: true,
-    dataType: "JSON",
-    success: function (response) {
-        data = response;
-        // department = data.lstDepartment;
-        // role = data.lstRole;
-        // language_id = data.lstLanguage_id;
-        console.log(data)
-        createGrid();
+function getData() {
+    switch (language_id) {
+        case 1:
+            Common.setupModal("load", null, Message.I00001_0, null, null, null, false);
+            break;
+        case 2:
+            Common.setupModal("load", null, Message.I00001_1, null, null, null, false);
+            break;
+        case 3:
+            Common.setupModal("load", null, Message.I00001_2, null, null, null, false);
+            break;
     }
-});
+    $.ajax({
+        url: StringCS.HTTPS + StringCS.ADDRESS + StringCS.DIRECT + "readUserDat?"
+            + StringCS.EMPLOYEE + "0&" + StringCS.LANGUAGE + language_id,
+        cache: false,
+        async: true,
+        dataType: "JSON",
+        success: function (response) {
+            data = response;
+            languageData = data.lstLanguage;
+            buttonData = data.lstButtonText;
+            messageData = data.lstMessage;
+            department = data.lstDepartment;
+            role = data.lstRole;
+            language = data.lstLanguageId;
+            console.log(data);
+            modal.style.display = "none";
+            createGrid();
+            document.getElementById("title").innerHTML = Common.setTextList("title", languageData);
+            document.getElementById("user_config").innerHTML = '<i class="userBtn fas fa-user-cog m-r-10"></i>'
+                + Common.setTextList("user_config", buttonData);
+            document.getElementById("change_pw").innerHTML = '<i class="userBtn fas fa-key m-r-10"></i>'
+                + Common.setTextList("change_pw", buttonData);
+            document.getElementById("logout").innerHTML = '<i class="userBtn fas fa-sign-out-alt m-r-10"></i>'
+                + Common.setTextList("logout", buttonData);
+        }
+    });
+}
 
 function createGrid() {
     $(function () {
         var obj = {
             width: "100%",
-            height: 500,
+            height: 530,
             resizable: true,
             wrap: false,
             hwrap: false,
@@ -50,16 +83,16 @@ function createGrid() {
             create: function (evt, ui) {
                 this.widget().pqTooltip();
             },
-            pageModel: { 
-                type: "local", 
-                rPP: 2,
+            pageModel: {
+                type: "local",
+                rPP: 5,
                 rPPOptions: [1, 2, 5, 10, 20, 100]
             },
             toolbar: {
                 items: [
                     {
                         type: 'button',
-                        label: '追加',
+                        label: Common.setTextList("button_add", buttonData),
                         cls: 'btn headerBtn changes',
                         listener: function () {
                             addRow(this)
@@ -68,20 +101,19 @@ function createGrid() {
                     { type: 'separator' },
                     {
                         type: 'button',
-                        label: '保存',
+                        label: Common.setTextList("button_save", buttonData),
                         cls: 'btn headerBtn changes',
                         listener: function () {
+                            saveRecord();
                         },
                     },
                     {
                         type: 'button',
-                        label: '元に戻す',
+                        label: Common.setTextList("button_from", buttonData),
                         cls: 'btn headerBtn changes',
                         listener: function () {
-                            $grid.pqGrid("rollback");
-                            $grid.pqGrid("history", { method: 'resetUndo' });
+                            location.reload();
                         },
-                        options: { disabled: true }
                     },
                 ]
             }
@@ -89,7 +121,7 @@ function createGrid() {
 
         obj.dataModel = {
             cache: true,
-            location: "local",
+            // location: "local",
             data: data.lstUser
         }
 
@@ -97,75 +129,132 @@ function createGrid() {
             {
                 dataIndx: "employee_id",
                 align: "right",
+                minWidth: "80px",
                 width: "7%",
-                title: "社員番号"
+                title: Common.setTextList("employee_id", languageData),
+                render: function (ui) {
+                    // console.log(ui)
+                    var strId = ui.rowData.employee_id;
+                    switch (strId.toString().length) {
+                        case 1:
+                            strId = "00000" + strId;
+                            break;
+                        case 2:
+                            strId = "0000" + strId;
+                            break;
+                        case 3:
+                            strId = "000" + strId;
+                            break;
+                        case 4:
+                            strId = "00" + strId;
+                            break;
+                        case 5:
+                            strId = "0" + strId;
+                            break;
+                        case 6:
+                            break;
+                    }
+                    return {
+                        text: strId,
+                    };
+                }
             },
             {
                 dataIndx: "name",
                 width: "20%",
-                title: "氏名"
+                title: Common.setTextList("name", languageData),
             },
             {
                 dataIndx: "icon_path",
                 align: "center",
                 width: "10%",
-                title: "アイコン"
+                title: Common.setTextList("icon_path", languageData),
             },
             {
                 dataIndx: "department_no",
                 hidden: true,
             },
             {
-                dataIndx: "department_name",
+                dataIndx: "department",
+                title: Common.setTextList("department_no", languageData),
                 width: "10%",
-                title: "部門",
                 editor: {
-                    type: 'select',
-                    valueIndx: "department_no",
-                    labelIndx: "department_name",
-                    mapIndices: { "department_no": "department_no", "department_name": "department_name" },
-                    options: department
+                    type: "select",
+                    mapIndices: { id: "code", name: "name" },
+                    labelIndx: "name",
+                    valueIndx: "code",
+                    options: department,
+                    mapIndices: { "code": "department_no", "name": "department" }
                 },
+                render: function (ui) {
+                    for (var i = 0; i < department.length; i++) {
+                        if (ui.rowData.department_no == department[i].code) {
+                            return {
+                                text: department[i].name,
+                            };
+                        }
+                    }
+                }
             },
             {
                 dataIndx: "language_id",
                 hidden: true,
             },
             {
-                dataIndx: "language_name",
-                valueIndx: "language_id",
+                dataIndx: "language",
+                title: Common.setTextList("language_no", languageData),
                 width: "10%",
-                title: "表示言語",
                 editor: {
-                    type: 'select',
-                    valueIndx: "language_id",
-                    labelIndx: "language_name",
-                    mapIndices: { "language_id": "language_id", "language_name": "language_name" },
-                    options: language_id
+                    type: "select",
+                    mapIndices: { id: "code", name: "name" },
+                    labelIndx: "name",
+                    valueIndx: "code",
+                    options: language,
+                    mapIndices: { "code": "language_id", "name": "language" }
                 },
+                render: function (ui) {
+                    for (var i = 0; i < language.length; i++) {
+                        if (ui.rowData.language_id == language[i].code) {
+                            return {
+                                text: language[i].name,
+                            };
+                        }
+                    }
+                }
+
             },
             {
-                dataIndx: "role_id",
+                dataIndx: "role_no",
                 hidden: true,
             },
             {
-                dataIndx: "role_name",
-                valueIndx: "role_id",
+                dataIndx: "role",
+                title: Common.setTextList("role_no", languageData),
                 width: "10%",
-                title: "役割",
                 editor: {
-                    type: 'select',
-                    valueIndx: "role_id",
-                    labelIndx: "role_name",
-                    mapIndices: { "role_id": "role_id", "role_name": "role_name" },
-                    options: role
+                    type: "select",
+                    mapIndices: { id: "code", name: "name" },
+                    labelIndx: "name",
+                    valueIndx: "code",
+                    options: role,
+                    mapIndices: { "code": "role_no", "name": "role" }
                 },
+                render: function (ui) {
+                    for (var i = 0; i < role.length; i++) {
+                        if (ui.rowData.role_no == role[i].code) {
+                            return {
+                                text: role[i].name,
+                            };
+                        }
+                    }
+                }
+
             },
             {
                 dataIndx: "remarks",
                 align: "center",
                 // width: "",
-                title: "備考"
+                title: Common.setTextList("remarks", languageData),
             },
             {
                 title: "",
@@ -173,8 +262,10 @@ function createGrid() {
                 width: "10%",
                 sortable: false,
                 render: function (ui) {
-                    return "<button type='button' class='btn tableBtn edit_btn m-b-5' id='edit_btn'>編集</button>\
-                    <button type='button' class='btn tableBtn delete_btn' id='delete_btn'>削除</button>";
+                    return "<button type='button' class='btn tableBtn edit_btn m-b-5' id='edit_btn'>"
+                        + Common.setTextList("button_edit", buttonData) + "</button>\
+                    <button type='button' class='btn tableBtn delete_btn' id='delete_btn'>"
+                        + Common.setTextList("button_delete", buttonData) + "</button>";
                 },
                 postRender: function (ui) {
                     var rowIndx = ui.rowIndx,
@@ -219,6 +310,7 @@ function createGrid() {
 
         //called by add button in toolbar.
         function addRow(grid) {
+            var totalPages = $("#grid").pqGrid("option", "pageModel.totalPages");
             var rows = grid.getRowsByClass({ cls: 'pq-row-edit' });
             if (rows.length > 0) {//already a row currently being edited.
                 var rowIndx = rows[0].rowIndx;
@@ -234,14 +326,24 @@ function createGrid() {
                     employee_id: "",
                     name: "",
                     icon_path: "",
-                    department_name: "",
-                    language_no: "",
-                    role_name: "",
-                    remarks: ""
+                    language_id: "",
+                    department_no: "",
+                    role_no: "",
+                    password: "",
+                    address: "",
+                    phone: "",
+                    remarks: "",
+                    create_date: "",
+                    create_id: "",
+                    update_date: "",
+                    update_id: "",
+                    del_flg: 0,
+                    mode: 0
                 }; //empty row template
 
+                // $("#grid").pqGrid( "goToPage", { page: totalPages} );
                 var rowIndx = grid.addRow({
-                    // rowIndxPage: 0,
+                    rowIndxPage: 0,
                     rowData: rowData,
                     checkEditable: false
                 });
@@ -253,27 +355,21 @@ function createGrid() {
 
         //called by delete button.
         function deleteRow(rowIndx, grid) {
-            console.log("delete", rowIndx)
             grid.addClass({ rowIndx: rowIndx, cls: 'pq-row-delete' });
+            Common.setupModal("question", null, setMessage("com_w_0001"), setButton("button_iie"), setButton("button_hai"), null, false);
+            var rowData = grid.getRowData({ rowIndx: rowIndx });
+            var button1 = document.getElementsByClassName("button-1")[0];
+            var button0 = document.getElementsByClassName("button-0")[0];
 
-            var ans = window.confirm("Are you sure to delete row No " + (rowIndx + 1) + "?");
-            if (ans) {
-                var ProductID = grid.getRecId({ rowIndx: rowIndx });
-                
-                $.ajax($.extend({}, obj, {
-                    context: grid,
-                    url: "/pro/products/delete",
-                    data: { ProductID: ProductID },
-                    success: function () {
-                        this.refreshDataAndView(); //reload fresh page data from server.
-                    },
-                    error: function () {
-                        this.removeClass({ rowIndx: rowIndx, cls: 'pq-row-delete' });
-                    }
-                }));
+            button1.onclick = function () {
+                addRecord(prepareUserData(rowData, 2));
+                $("#grid").pqGrid("deleteRow", { rowIndx: rowIndx });
+                modal.style.display = "none";
             }
-            else {
+
+            button0.onclick = function () {
                 grid.removeClass({ rowIndx: rowIndx, cls: 'pq-row-delete' });
+                modal.style.display = "none";
             }
         }
 
@@ -286,19 +382,32 @@ function createGrid() {
 
             //change edit button to save button and delete to cancel.
             var $tr = grid.getRow({ rowIndx: rowIndx }),
-                $btn = $tr.find("button.edit_btn");
-            $btn.button("option", {
-                label: "保存"
-            })
+                $btn = $tr.find("button#edit_btn");
+            // $btn.button("option", {
+            //     label: "保存"
+            // })
+            //     .unbind("click")
+            //     .click(function (evt) {
+            //         // evt.preventDefault();
+            //         return update(rowIndx, grid);
+            //     });
+            // $btn.next()
+            //     .button("option", {
+            //         label: "キャンセル"
+            //     })
+            //     .unbind("click")
+            //     .click(function (evt) {
+            //         grid.quitEditMode();
+            //         grid.removeClass({ rowIndx: rowIndx, cls: 'pq-row-edit' })
+            //         grid.rollback();
+            //     });
+            $btn.button("option", { label: setButton("button_update"), "icons": { primary: "ui-icon-check" } })
                 .unbind("click")
                 .click(function (evt) {
-                    evt.preventDefault();
+                    //evt.preventDefault();
                     return update(rowIndx, grid);
                 });
-            $btn.next()
-                .button("option", {
-                    label: "キャンセル"
-                })
+            $btn.next().button("option", { label: setButton("button_cancel"), "icons": { primary: "ui-icon-cancel" } })
                 .unbind("click")
                 .click(function (evt) {
                     grid.quitEditMode();
@@ -309,7 +418,13 @@ function createGrid() {
 
         //called by update button.
         function update(rowIndx, grid) {
-            console.log("update")
+            console.log("update");
+            var rowData = grid.getRowData({ rowIndx: rowIndx });
+            if (rowData.mode == 0) {
+                addRecord(prepareUserData(rowData, 0));
+            } else {
+                addRecord(prepareUserData(rowData, 1));
+            }
             if (grid.saveEditCell() == false) {
                 return false;
             }
@@ -319,38 +434,7 @@ function createGrid() {
             }
 
             if (grid.isDirty()) {
-                var url,
-                    rowData = grid.getRowData({ rowIndx: rowIndx }),
-                    recIndx = grid.option("dataModel.recIndx"),
-                    type;
-
                 grid.removeClass({ rowIndx: rowIndx, cls: 'pq-row-edit' });
-
-                if (rowData[recIndx] == null) {
-                    //add record.
-                    type = 'add';
-                    // url = "/pro/products/add"; 
-
-                }
-                else {
-                    //update record.
-                    type = 'update';
-                    // url = "/pro/products/update"; 
-
-                }
-                $.ajax($.extend({}, obj, {
-                    context: grid,
-                    url: url,
-                    data: rowData,
-                    success: function (response) {
-                        if (type == 'add') {
-                            rowData[recIndx] = response.recId;
-                        }
-                        //debugger;
-                        grid.commit({ type: type, rows: [rowData] });
-                        grid.refreshRow({ rowIndx: rowIndx });
-                    }
-                }));
             }
             else {
                 grid.quitEditMode();
@@ -359,34 +443,93 @@ function createGrid() {
             }
         }
 
-        
         var $grid = $("div#grid").pqGrid(obj);
         $grid.pqGrid("option", {
-            strAdd: "Add",
-            strDelete: "Delete",
-            strEdit: "Edit",
             strGroup_header: "Drag a column here to group by that column",
             strGroup_merge: 'Merge cells',
             strGroup_fixCols: 'Fix columns',
             strGroup_grandSummary: 'Grand summary',
-            strLoading: "Loading",
             strNextResult: "Next Result",
             strNoRows: "No rows to display.",
-            strNothingFound: "Nothing found",
             strPrevResult: "Previous Result",
             strSearch: "Search",
             strSelectedmatches: "Selected {0} of {1} match(es)"
         });
         $grid.find(".pq-pager").pqPager("option", {
-            strDisplay:"Displaying {0} to {1} of {2} items.",
-            strFirstPage:"First Page",
-            strLastPage:"Last Page",
-            strNextPage:"Next Page",
-            strPage:"Page {0} of {1}",
-            strPrevPage:"Previous Page",
-            strRefresh:"Refresh",
-            strRpp:"Records per page: {0}"
+            strDisplay: "Displaying {0} to {1} of {2} items.",
+            strFirstPage: "First Page",
+            strLastPage: "Last Page",
+            strNextPage: "Next Page",
+            strPage: "Page {0} of {1}",
+            strPrevPage: "Previous Page",
+            strRefresh: "Refresh",
+            strRpp: "Records per page: {0}"
         });
+    });
+}
+
+/**
+    * PREPARE USER DATA
+*/
+function prepareUserData(userData, mode) {
+    var WriteUserDat = {
+        employee_id: parseInt(userData.employee_id),
+        name: userData.name,
+        icon_path: userData.icon_path,
+        language_id: parseInt(userData.language_id),
+        department_no: parseInt(userData.department_no),
+        role_no: parseInt(userData.role_no),
+        password: userData.password,
+        address: userData.address,
+        phone: userData.phone,
+        remarks: userData.remarks,
+        create_date: null,
+        create_id: parseInt(userData.create_id),
+        update_date: null,
+        update_id: parseInt(userData.update_id),
+        del_flg: userData.del_flg,
+        mode: mode
+    }
+    return WriteUserDat;
+}
+
+/**
+   * ADD RECORD USER DATA
+*/
+function addRecord(userData) {
+    userDataArr.lstUser[tempRec] = userData;
+    tempRec++;
+}
+
+/**
+   * ONCLICK ACTION
+*/
+function saveRecord() {
+    console.log(userDataArr)
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: JSON.stringify(userDataArr),
+        contentType: "application/json; charset=utf-8",
+        url: StringCS.HTTPS + StringCS.ADDRESS + StringCS.DIRECT + "writeUser?",
+        timeout: ValueCS.VL_LONG_TIMEOUT,
+        success: function (response) {
+            $("#grid").pqGrid("showLoading");
+            console.log(response);
+            // Common.setupModal("load", null, Mess.I00002, null, null, null, false);
+        },
+        error: function (xmlhttprequest, textstatus, message) {
+            if (textstatus === "timeout") {
+                console.log("timeout")
+            } else {
+                console.log(textstatus)
+            }
+            // Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
+        }
+    }).done(function (res) {
+        $("#grid").pqGrid("hideLoading");
+        location.reload();
+        console.log('res', res);
     });
 }
 
@@ -404,7 +547,8 @@ function onclickAction() {
 
     document.getElementById("logoutBtn").onclick = function () {
         sessionStorage.setItem(StringCS.EMPLOYEE, '');
-        Common.movePage("./login.html");
+        Common.setupModal("question", null, Common.setTextMessage("com_w_0003", messageData), Common.setTextList("button_iie", buttonData), Common.setTextList("button_hai", buttonData), null, false);
+        Common.logout();
     }
 }
 
@@ -413,9 +557,9 @@ function onclickAction() {
 */
 function onLoadAction() {
     Common.checkLogin(sessionStorage.getItem(StringCS.EMPLOYEE));
+    getData();
     onclickAction();
     document.getElementById("factory_name").innerHTML = sessionStorage.getItem("factory_name");
-    
 }
 
 window.onload = onLoadAction;

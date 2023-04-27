@@ -69,25 +69,25 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
                     <li>
                         <a class="dropdown-item scan-page" id="userConfigBtn">
-                            <span class="text" id="userConfig">
+                            <span class="text" id="user_config">
                                 <i class="userBtn fas fa-user-cog m-r-10"></i>ユーザー情報登録編集</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item scan-page" id="changePwBtn">
-                            <span class="text" id="changePw"><i class="userBtn fas fa-key m-r-10"></i>パスワード変更</span>
+                            <span class="text" id="change_pw"><i class="userBtn fas fa-key m-r-10"></i>パスワード変更</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item scan-page" id="logoutBtn">
-                            <span class="text" id="logoutOption"><i
+                            <span class="text" id="logout"><i
                                     class="userBtn fas fa-sign-out-alt m-r-10"></i>ログアウト</span>
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="wrap-mainform">
-                <span id="titleForm">
+                <span id="title">
                     メッセージ管理
                 </span>
                 
@@ -95,6 +95,31 @@
             </div>
         </div>
 
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <!-- Modal image area -->
+                <div class="modal-image-area background-error-modal">
+                    <span class="modal-close-button">X</span>
+                    <img id="imgStatusModal" class="modal-image">
+                </div>
+
+                <!-- Modal message area -->
+                <div class="modal-message">
+                    <div class="modal-message-area">
+                        <span class="title-modal text">題名</span>
+                        <span class="modal-message-detail text">メッセージ</span>
+                    </div>
+
+                    <div id="buttonAreaModal">
+                        <button class="button-modal btn-common button-0" role="button"></button>
+                        <button class="button-modal btn-common button-1" role="button"></button>
+                        <button class="button-modal btn-common button-2" role="button"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="../lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

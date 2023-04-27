@@ -46,7 +46,7 @@
                 </ul>
             </div>
             <div class="wrap-mainform">
-                <span id="titleForm">
+                <span id="title">
                     ユーザー情報登録編集
                 </span>
                 <form action="" id="userConfiguration">
@@ -90,11 +90,7 @@
                                     <span class="input-group-text mw135 text" id="language">表示言語</span>
                                 </div>
 
-                                <select class="custom-select combobox text" id="cbb_language">
-                                    <option value="0" id="opBumon1">English</option>
-                                    <option value="1" id="opBumon2">Tiếng Việt</option>
-                                    <option value="2" id="opBumon3">日本語</option>
-                                    <option value="-" selected hidden></option>
+                                <select class="custom-select combobox text" id="lstLanguageId">
                                 </select>
                             </div>
                         </div>
@@ -107,11 +103,7 @@
                                     <span class="input-group-text mw135 text" id="process">部門</span>
                                 </div>
 
-                                <select class="custom-select combobox text" id="cbb_language">
-                                    <!-- <option value="0" id="opBumon1">English</option>
-                                    <option value="1" id="opBumon2">Tiếng Việt</option>
-                                    <option value="2" id="opBumon3">日本語</option> -->
-                                    <option value="-" selected hidden></option>
+                                <select class="custom-select combobox text" id="lstDepartment">
                                 </select>
                             </div>
                         </div>
@@ -123,11 +115,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw135 text" id="role">役割</span>
                                 </div>
-                                <select class="custom-select combobox text" id="cbb_role">
-                                    <option value="0" id="opBumon1">管理者</option>
-                                    <option value="1" id="opBumon2">リーダー</option>
-                                    <option value="2" id="opBumon3">一般社員</option>
-                                    <option value="-" selected hidden></option>
+                                <select class="custom-select combobox text" id="lstRole">
                                 </select>
                             </div>
                         </div>
@@ -140,7 +128,7 @@
                                     <span class="input-group-text mw135 text" id="remark">備考</span>
                                 </div>
 
-                                <textarea class="form-control" id="remarkTextArea" rows="8"></textarea>
+                                <textarea class="form-control" id="remarks" rows="8"></textarea>
                             </div>
                         </div>
                         <div class="col-4">

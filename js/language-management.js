@@ -1,11 +1,11 @@
 import * as Common from './common/common_function.js';
+import * as StringCS from './common/string.js';
+import * as Message from './common/message.js';
+import * as ValueCS from './common/values.js';
 
-var data = [
-    { language_no: "0001", item_no: "言語管理", key_phrase: "save", japanese: "保存", english: "Save", vietnamese: "Lưu", remark: "" },
-    { language_no: "0002", item_no: "言語管理", key_phrase: "edit", japanese: "編集", english: "Edit", vietnamese: "Sửa", remark: "" },
-    { language_no: "0003", item_no: "言語管理", key_phrase: "delete", japanese: "削除", english: "Delete", vietnamese: "Xoá", remark: "" },
-    { language_no: "0004", item_no: "言語管理", key_phrase: "manage", japanese: "管理", english: "Manage", vietnamese: "Quản lý", remark: "" },
-]
+
+var data;
+const modal = document.getElementById("myModal");
 
 var obj = {
     width: "100%",
@@ -127,11 +127,8 @@ function onclickAction() {
     }
 
     document.getElementById("logoutBtn").onclick = function () {
-        Common.movePage("./login.html");
-    }
-
-    document.getElementById("deleteBtn").onclick = function () {
-        Common.movePage("./page404.html");
+        Common.setupModal("question", null, Common.setTextMessage("com_w_0003", messageData), Common.setTextList("button_iie", buttonData), Common.setTextList("button_hai", buttonData), null, false);
+        Common.logout();
     }
 }
 

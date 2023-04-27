@@ -179,7 +179,8 @@ function onclickAction() {
     }
 
     document.getElementById("logoutBtn").onclick = function () {
-        Common.movePage("./login.html");
+        Common.setupModal("question", null, Common.setTextMessage("com_w_0003", messageData), Common.setTextList("button_iie", buttonData), Common.setTextList("button_hai", buttonData), null, false);
+        Common.logout();
     }
 
     document.getElementById("showBtn").onclick = function () {
